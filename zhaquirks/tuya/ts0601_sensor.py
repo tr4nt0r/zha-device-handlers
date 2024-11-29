@@ -89,7 +89,7 @@ from zhaquirks.tuya.builder import TuyaPowerConfigurationCluster2AAA, TuyaQuirkB
         fallback_name="Illuminance",
         device_class=SensorDeviceClass.ILLUMINANCE,
         state_class=SensorStateClass.MEASUREMENT,
-        unit=LIGHT_LUX
+        unit=LIGHT_LUX,
     )
     .tuya_binary_sensor(
         dp_id=1,
