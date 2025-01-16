@@ -1792,7 +1792,19 @@ class ZonnsmartTV01_ZG(TuyaThermostat):
 
 
 (
-    TuyaQuirkBuilder("_TZE204_ogx8u5z6", "TS0601")
+    TuyaQuirkBuilder("_TZE200_bvu2wnxz", "TS0601")
+    .applies_to("_TZE200_6rdj8dzm", "TS0601")
+    .applies_to("_TZE200_9xfjixap", "TS0601")
+    .applies_to("_TZE200_p3dbf6qs", "TS0601")
+    .applies_to("_TZE200_rxntag7i", "TS0601")
+    .applies_to("_TZE200_yqgbrdyo", "TS0601")
+    .applies_to("_TZE284_p3dbf6qs", "TS0601")
+    .applies_to("_TZE200_rxq4iti9", "TS0601")
+    .applies_to("_TZE200_hvaxb2tc", "TS0601")
+    .applies_to("_TZE284_o3x45p96", "TS0601")
+    .applies_to("_TZE284_c6wv4xyo", "TS0601")
+    .applies_to("_TZE204_o3x45p96", "TS0601")
+    .applies_to("_TZE204_ogx8u5z6", "TS0601")
     .tuya_dp(
         dp_id=2,
         ep_attribute=TuyaThermostatV2.ep_attribute,
@@ -1840,8 +1852,14 @@ class ZonnsmartTV01_ZG(TuyaThermostat):
         translation_key="child_lock",
         fallback_name="Child lock",
     )
-    .tuya_switch(
+    .tuya_binary_sensor(
         dp_id=35,
+        attribute_name="error_or_battery_low",
+        translation_key="error_or_battery_low",
+        fallback_name="Error or battery low",
+    )
+    .tuya_switch(
+        dp_id=36,
         attribute_name="frost_protection",
         translation_key="frost_protection",
         fallback_name="Frost protection",
@@ -1851,12 +1869,6 @@ class ZonnsmartTV01_ZG(TuyaThermostat):
         attribute_name="scale_protection",
         translation_key="scale_protection",
         fallback_name="Scale protection",
-    )
-    .tuya_binary_sensor(
-        dp_id=35,
-        attribute_name="error_or_battery_low",
-        translation_key="error_or_battery_low",
-        fallback_name="Error or battery low",
     )
     .adds(TuyaThermostatV2)
     .skip_configuration()
