@@ -178,7 +178,6 @@ class TuyaQuirkBuilder(QuirkBuilder):
         self,
         dp_id: int,
         illuminance_cfg: TuyaLocalCluster = TuyaIlluminance,
-        converter: Optional[Callable[[Any], Any]] = None,
     ) -> QuirkBuilder:
         """Add a Tuya Illuminance Configuration."""
         self.tuya_dp(
