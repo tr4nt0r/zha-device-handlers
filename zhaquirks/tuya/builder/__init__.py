@@ -2,6 +2,7 @@
 
 from collections.abc import Callable
 from enum import Enum
+import math
 from typing import Any, Optional
 
 from zigpy.quirks import _DEVICE_REGISTRY
@@ -17,6 +18,7 @@ from zigpy.zcl.clusters.measurement import (
     PM25,
     CarbonDioxideConcentration,
     FormaldehydeConcentration,
+    IlluminanceMeasurement,
     RelativeHumidity,
     SoilMoisture,
     TemperatureMeasurement,
@@ -132,6 +134,13 @@ class TuyaAirQualityVOC(TuyaLocalCluster):
             is_manufacturer_specific=True,
         )
 
+class TuyaIlluminance(IlluminanceMeasurement, TuyaLocalCluster):
+    """Tuya local illuminance cluster."""
+
+    _CONSTANT_ATTRIBUTES = {
+        IlluminanceMeasurement.AttributeDefs.light_sensor_type.id: IlluminanceMeasurement.LightSensorType.Photodiode
+    }
+
 
 class TuyaQuirkBuilder(QuirkBuilder):
     """Tuya QuirkBuilder."""
@@ -162,6 +171,22 @@ class TuyaQuirkBuilder(QuirkBuilder):
             converter=lambda x: x * scale,
         )
         self.adds(power_cfg)
+        return self
+
+    def tuya_illuminance(
+        self,
+        dp_id: int,
+        illuminance_cfg: TuyaLocalCluster = TuyaIlluminance,
+        converter: Optional[Callable[[Any], Any]] = None,
+    ) -> QuirkBuilder:
+        """Add a Tuya Illuminance Configuration."""
+        self.tuya_dp(
+            dp_id,
+            illuminance_cfg.ep_attribute,
+            IlluminanceMeasurement.AttributeDefs.measured_value.name,
+            converter=lambda x: (10000 * math.log10(x) + 1) if x != 0 else 0,
+        )
+        self.adds(illuminance_cfg)
         return self
 
     def tuya_contact(self, dp_id: int):
