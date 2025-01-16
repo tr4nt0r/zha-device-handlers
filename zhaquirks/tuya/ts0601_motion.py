@@ -1,7 +1,6 @@
 """BlitzWolf IS-3/Tuya motion rechargeable occupancy sensor."""
 
 import asyncio
-import math
 from typing import Any
 
 from zigpy.quirks.v2 import EntityPlatform, EntityType
@@ -9,15 +8,11 @@ from zigpy.quirks.v2.homeassistant import UnitOfLength, UnitOfTime
 from zigpy.quirks.v2.homeassistant.binary_sensor import BinarySensorDeviceClass
 from zigpy.quirks.v2.homeassistant.sensor import SensorDeviceClass, SensorStateClass
 import zigpy.types as t
-from zigpy.zcl.clusters.measurement import IlluminanceMeasurement, OccupancySensing
+from zigpy.zcl.clusters.measurement import OccupancySensing
 from zigpy.zcl.clusters.security import IasZone
 
 from zhaquirks.tuya import TuyaLocalCluster
-from zhaquirks.tuya.builder import TuyaQuirkBuilder
-
-
-class TuyaIlluminanceCluster(IlluminanceMeasurement, TuyaLocalCluster):
-    """Tuya Illuminance cluster."""
+from zhaquirks.tuya.builder import TuyaIlluminance, TuyaQuirkBuilder
 
 
 class TuyaOccupancySensing(OccupancySensing, TuyaLocalCluster):
@@ -165,7 +160,7 @@ base_tuya_motion = (
         translation_key="distance",
         fallback_name="Target distance",
     )
-    .adds(TuyaIlluminanceCluster)
+    .adds(TuyaIlluminance)
     .skip_configuration()
 )
 
@@ -198,12 +193,7 @@ base_tuya_motion = (
         translation_key="presence_sensitivity",
         fallback_name="Presence sensitivity",
     )
-    .tuya_dp(
-        dp_id=103,
-        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
-        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
-        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
-    )
+    .tuya_illuminance(103)
     .tuya_number(
         dp_id=105,
         attribute_name="presence_timeout",
@@ -271,12 +261,7 @@ base_tuya_motion = (
         translation_key="presence_sensitivity",
         fallback_name="Presence sensitivity",
     )
-    .tuya_dp(
-        dp_id=104,
-        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
-        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
-        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
-    )
+    .tuya_illuminance(104)
     # 103 cli, z2m lists as not working
     .add_to_registry()
 )
@@ -318,12 +303,7 @@ base_tuya_motion = (
         translation_key="fading_time",
         fallback_name="Fading time",
     )
-    .tuya_dp(
-        dp_id=104,
-        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
-        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
-        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
-    )
+    .tuya_illuminance(104)
     .add_to_registry()
 )
 
@@ -401,12 +381,7 @@ base_tuya_motion = (
         fallback_name="Fading time",
     )
     # 103 cline, z2m doesn't expose
-    .tuya_dp(
-        dp_id=104,
-        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
-        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
-        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
-    )
+    .tuya_illuminance(104)
     .tuya_number(
         dp_id=105,
         attribute_name="entry_sensitivity",
@@ -650,12 +625,7 @@ base_tuya_motion = (
         attribute_name=OccupancySensing.AttributeDefs.occupancy.name,
         converter=lambda x: x == 1,
     )
-    .tuya_dp(
-        dp_id=101,
-        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
-        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
-        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
-    )
+    .tuya_illuminance(101)
     .adds(TuyaOccupancySensing)
     .tuya_switch(
         dp_id=102,
@@ -694,7 +664,7 @@ base_tuya_motion = (
         translation_key="presence_timeout",
         fallback_name="Fade time",
     )
-    .adds(TuyaIlluminanceCluster)
+    .adds(TuyaIlluminance)
     .skip_configuration()
     .add_to_registry()
 )
