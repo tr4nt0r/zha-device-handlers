@@ -1,6 +1,5 @@
 """Tuya temp and humidity sensors."""
 
-
 from zhaquirks.tuya.builder import (
     TuyaPowerConfigurationCluster2AAA,
     TuyaQuirkBuilder,
