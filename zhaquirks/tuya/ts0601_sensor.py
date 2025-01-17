@@ -3,6 +3,7 @@
 from zigpy.quirks.v2.homeassistant.sensor import SensorDeviceClass, SensorStateClass
 import zigpy.types as t
 
+from zhaquirks.tuya import TuyaPowerConfigurationClusterCR2032
 from zhaquirks.tuya.builder import (
     TuyaPowerConfigurationCluster2AAA,
     TuyaQuirkBuilder,
@@ -121,7 +122,7 @@ from zhaquirks.tuya.builder import (
         state_class=SensorStateClass.MEASUREMENT,
     )
     .tuya_contact(dp_id=1)
-    .tuya_battery(dp_id=2)
+    .tuya_battery(dp_id=2, power_cfg=TuyaPowerConfigurationClusterCR2032)
     .skip_configuration()
     .add_to_registry()
 )
