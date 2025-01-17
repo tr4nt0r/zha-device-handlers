@@ -960,6 +960,7 @@ class TuyaPowerConfigurationClusterOther(PowerConfiguration, TuyaLocalCluster):
         PowerConfiguration.AttributeDefs.battery_quantity.id: 1,
     }
 
+
 class TuyaPowerConfigurationClusterCR2032(PowerConfiguration, TuyaLocalCluster):
     """PowerConfiguration cluster for devices with 1 CR2032."""
 
