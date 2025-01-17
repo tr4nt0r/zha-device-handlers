@@ -965,7 +965,7 @@ class TuyaPowerConfigurationClusterCR2032(PowerConfiguration, TuyaLocalCluster):
     """PowerConfiguration cluster for devices with 1 CR2032."""
 
     _CONSTANT_ATTRIBUTES = {
-        PowerConfiguration.AttributeDefs.battery_size.id: BatterySize.CR2032,
+        PowerConfiguration.AttributeDefs.battery_size.id: 10,
         PowerConfiguration.AttributeDefs.battery_rated_voltage.id: 30,
         PowerConfiguration.AttributeDefs.battery_quantity.id: 1,
     }
