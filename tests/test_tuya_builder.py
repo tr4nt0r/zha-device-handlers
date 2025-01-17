@@ -18,6 +18,7 @@ from zhaquirks.tuya.builder import (
     TuyaFormaldehydeConcetration,
     TuyaIasContact,
     TuyaIasFire,
+    TuyaIlluminance,
     TuyaPM25Concetration,
     TuyaPowerConfigurationCluster2AAA,
     TuyaQuirkBuilder,
@@ -50,6 +51,7 @@ zhaquirks.setup()
             "formaldehyde_concentration",
             TuyaFormaldehydeConcetration,
         ),
+        ("tuya_illuminance", "illuminance", TuyaIlluminance),
     ],
 )
 async def test_convenience_methods(device_mock, method_name, attr_name, exp_class):
