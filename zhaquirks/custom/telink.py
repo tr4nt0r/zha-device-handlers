@@ -92,10 +92,10 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
 
 (
     QuirkBuilder("MiaoMiaoCe", "MHO-C401N-z")
-    .applies_to("MiaMiaoCe", "MHO-C401N-z") # typo until v. 1.2.2
+    .applies_to("MiaMiaoCe", "MHO-C401N-z")  # typo until v. 1.2.2
     .applies_to("MiaoMiaoCe", "MHO-C401-z")
     .applies_to("MiaoMiaoCe", "MHO-C122-z")
-    .applies_to("MiaMiaoCe", "MHO-C122-z") # typo until v. 1.2.2
+    .applies_to("MiaMiaoCe", "MHO-C122-z")  # typo until v. 1.2.2
     .applies_to("Xiaomi", "LYWSD03MMC-z")
     .applies_to("Tuya", "TS0201-z")
     .applies_to("Tuya", "TH03Z-z")
