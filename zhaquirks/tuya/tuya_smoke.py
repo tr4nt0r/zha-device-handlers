@@ -1,6 +1,7 @@
 """Smoke Sensor."""
 
-from zigpy.quirks.v2 import QuirkBuilder
+from zigpy.quirks.v2 import EntityType, QuirkBuilder
+from zigpy.quirks.v2.homeassistant.binary_sensor import BinarySensorDeviceClass
 import zigpy.types as t
 from zigpy.zcl.clusters.general import OnOff, Time
 from zigpy.zcl.clusters.lightlink import LightLink
@@ -55,7 +56,6 @@ class TuyaSmokeDetectorCluster(TuyaManufClusterAttributes):
     TuyaQuirkBuilder("_TZE200_aycxwiau", "TS0601")
     .applies_to("_TZE200_dq1mfjug", "TS0601")
     .applies_to("_TZE200_m9skfctm", "TS0601")
-    .applies_to("_TZE200_ntcy3xu1", "TS0601")
     .applies_to("_TZE200_rccxox8p", "TS0601")
     .applies_to("_TZE284_rccxox8p", "TS0601")
     .applies_to("_TZE200_vzekyi4c", "TS0601")
@@ -68,7 +68,15 @@ class TuyaSmokeDetectorCluster(TuyaManufClusterAttributes):
 
 (
     TuyaQuirkBuilder("_TZE204_ntcy3xu1", "TS0601")
+    .applies_to("_TZE200_ntcy3xu1", "TS0601")
     .tuya_smoke(dp_id=1)
+    .tuya_binary_sensor(
+        dp_id=4,
+        attribute_name="tamper",
+        device_class=BinarySensorDeviceClass.TAMPER,
+        entity_type=EntityType.DIAGNOSTIC,
+        fallback_name="Tamper",
+    )
     .tuya_dp(
         dp_id=14,
         ep_attribute=TuyaPowerConfigurationCluster2AAA.ep_attribute,
