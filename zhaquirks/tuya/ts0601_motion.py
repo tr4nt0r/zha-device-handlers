@@ -587,7 +587,6 @@ base_tuya_motion = (
     .add_to_registry()
 )
 
-
 (
     TuyaQuirkBuilder("_TZE204_kyhbrfyl", "TS0601")
     .tuya_dp(
@@ -723,7 +722,6 @@ base_tuya_motion = (
     .add_to_registry()
 )
 
-
 # NEO NAS-PS10B2
 (
     TuyaQuirkBuilder("_TZE204_1youk3hj", "TS0601")
@@ -844,7 +842,6 @@ base_tuya_motion = (
     .add_to_registry()
 )
 
-
 # TuyaZG-204ZL
 (
     TuyaQuirkBuilder("_TZE200_3towulqd", "TS0601")
@@ -891,6 +888,98 @@ base_tuya_motion = (
         step=1,
         translation_key="illuminance_interval",
         fallback_name="Illuminance interval",
+    )
+    .skip_configuration()
+    .add_to_registry()
+)
+
+# Tuya Mini human breath sensor ZY-M100-S_1
+(
+    TuyaQuirkBuilder("_TZE204_sxm7l9xa", "TS0601")
+    .applies_to("_TZE204_e5m9c5hl", "TS0601")
+    .tuya_dp(
+        dp_id=104,
+        ep_attribute=TuyaIlluminanceCluster.ep_attribute,
+        attribute_name=TuyaIlluminanceCluster.AttributeDefs.measured_value.name,
+        converter=lambda x: 10000 * math.log10(x) + 1 if x != 0 else 0,
+    )
+    .adds(TuyaIlluminanceCluster)
+    .tuya_dp(
+        dp_id=105,
+        ep_attribute=TuyaOccupancySensing.ep_attribute,
+        attribute_name=OccupancySensing.AttributeDefs.occupancy.name,
+        converter=lambda x: x == 1,
+    )
+    .adds(TuyaOccupancySensing)
+    .tuya_number(
+        dp_id=106,
+        attribute_name="radar_sensitivity",
+        type=t.uint16_t,
+        min_value=0,
+        max_value=9,
+        step=1,
+        translation_key="radar_sensitivity",
+        fallback_name="Radar sensitivity",
+    )
+    .tuya_number(
+        dp_id=107,
+        attribute_name="detection_distance_max",
+        type=t.uint16_t,
+        device_class=SensorDeviceClass.DISTANCE,
+        unit=UnitOfLength.CENTIMETERS,
+        min_value=0,
+        max_value=950,
+        step=15,
+        translation_key="detection_distance_max",
+        fallback_name="Maximum range",
+    )
+    .tuya_number(
+        dp_id=107,
+        attribute_name="detection_distance_min",
+        type=t.uint16_t,
+        device_class=SensorDeviceClass.DISTANCE,
+        unit=UnitOfLength.CENTIMETERS,
+        min_value=0,
+        max_value=950,
+        step=15,
+        translation_key="detection_distance_min",
+        fallback_name="Minimum range",
+    )
+    .tuya_sensor(
+        dp_id=109,
+        attribute_name="target_distance",
+        type=t.uint16_t,
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.DISTANCE,
+        unit=UnitOfLength.CENTIMETERS,
+        entity_type=EntityType.STANDARD,
+        translation_key="target_distance",
+        fallback_name="Target distance",
+    )
+    .tuya_number(
+        dp_id=110,
+        attribute_name="fading_time",
+        type=t.uint16_t,
+        device_class=SensorDeviceClass.DURATION,
+        unit=UnitOfTime.SECONDS,
+        min_value=1,
+        max_value=1500,
+        step=1,
+        translation_key="fading_time",
+        fallback_name="Fading time",
+    )
+    .tuya_number(
+        dp_id=111,
+        attribute_name="detection_delay",
+        type=t.uint16_t,
+        device_class=SensorDeviceClass.DURATION,
+        unit=UnitOfTime.SECONDS,
+        min_value=0,
+        max_value=10,
+        step=0.1,
+        multiplier=0.1,
+        translation_key="detection_delay",
+        fallback_name="Detection delay",
     )
     .skip_configuration()
     .add_to_registry()
