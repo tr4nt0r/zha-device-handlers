@@ -7,7 +7,7 @@ from zigpy.quirks.v2 import QuirkBuilder
 from zigpy.quirks.v2.homeassistant import UnitOfTemperature, UnitOfTime
 import zigpy.types as t
 from zigpy.zcl import ClusterType
-from zigpy.zcl.clusters.hvac import UserInterface
+from zigpy.zcl.clusters.hvac import ScheduleProgrammingVisibility, UserInterface
 from zigpy.zcl.foundation import ZCLAttributeDef
 
 from zhaquirks import CustomCluster
@@ -201,6 +201,8 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
         CustomUserInterfaceCluster.cluster_id,
         translation_key="show_smiley",
         fallback_name="Show smiley",
+        off_value=ScheduleProgrammingVisibility.Disabled,
+        on_value=ScheduleProgrammingVisibility.Enabled,
     )
     .add_to_registry()
 )
