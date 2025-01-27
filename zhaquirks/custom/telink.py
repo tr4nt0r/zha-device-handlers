@@ -4,7 +4,7 @@ see https://github.com/pvvx/ZigbeeTLc
 """
 
 from zigpy.quirks.v2 import QuirkBuilder
-from zigpy.quirks.v2.homeassistant import UnitOfTemperature, UnitOfTime
+from zigpy.quirks.v2.homeassistant import PERCENTAGE, UnitOfTemperature, UnitOfTime
 import zigpy.types as t
 from zigpy.zcl import ClusterType
 from zigpy.zcl.clusters.hvac import ScheduleProgrammingVisibility, UserInterface
@@ -124,7 +124,7 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
         min_value=-327.67,
         max_value=327.67,
         step=0.01,
-        # unit=PERCENTAGE,
+        unit=PERCENTAGE,
         translation_key="humidity_offset",
         fallback_name="Humidity offset",
         multiplier=0.01,
@@ -160,7 +160,7 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
         min_value=0,
         max_value=99,
         step=1,
-        # unit=PERCENTAGE,
+        unit=PERCENTAGE,
         translation_key="comfort_humidity_min",
         fallback_name="Comfort humidity min",
         multiplier=0.01,
@@ -172,7 +172,7 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
         min_value=0,
         max_value=99,
         step=1,
-        # unit=PERCENTAGE,
+        unit=PERCENTAGE,
         translation_key="comfort_humidity_max",
         fallback_name="Comfort humidity max",
         multiplier=0.01,
