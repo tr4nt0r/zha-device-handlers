@@ -102,6 +102,7 @@ class CustomUserInterfaceCluster(CustomCluster, UserInterface):
     .applies_to("Tuya", "ZTH01-z")
     .applies_to("Tuya", "ZTH02-z")
     .applies_to("Tuya", "LKTMZL02-z")
+    .applies_to("Tuya", "ZY-ZTH02-z")
     .applies_to("Sonoff", "TH03-z")
     .applies_to("Qingping", "CGDK2-z")
     .removes(CustomUserInterfaceCluster.cluster_id, cluster_type=ClusterType.Client)
